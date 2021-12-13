@@ -141,3 +141,38 @@ insertCardIntoContainer(ObjCard, card_container);
 // Milestone 3
 // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone (animal, vegetable, user). 
 // Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
+
+let userFilter = ObjCard.filter((element) => {
+	return element.type == "user"
+});
+
+let vegFilter = ObjCard.filter((element) => {
+	return element.type == "vegetable"
+});
+
+let petFilter = ObjCard.filter((element) => {
+	return element.type == "animal"
+});
+
+let filtro = document.getElementById("filtro");
+
+filtro.addEventListener("change", 
+	function()
+	{
+		switch(filtro.value)
+		{
+			case "animal":
+				insertCardIntoContainer(petFilter, card_container);
+			break;
+			case "user":
+				insertCardIntoContainer(userFilter, card_container);
+			break;
+			case "vegetable":
+				insertCardIntoContainer(vegFilter, card_container);
+			break;
+			case "all":
+				insertCardIntoContainer(ObjCard, card_container);
+			break;
+		}
+	}
+)
