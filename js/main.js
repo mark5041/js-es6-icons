@@ -162,12 +162,24 @@ filtro.addEventListener("change",
 		switch(filtro.value)
 		{
 			case "animal":
+				iconColor = randomColor();
+				petFilter.forEach(element => {
+					element.color = iconColor;
+				});
 				insertCardIntoContainer(petFilter, card_container);
 			break;
 			case "user":
+				iconColor = randomColor();
+				userFilter.forEach(element => {
+					element.color = iconColor;
+				});
 				insertCardIntoContainer(userFilter, card_container);
 			break;
 			case "vegetable":
+				iconColor = randomColor();
+				vegFilter.forEach(element => {
+					element.color = iconColor;
+				});
 				insertCardIntoContainer(vegFilter, card_container);
 			break;
 			case "all":
@@ -176,3 +188,25 @@ filtro.addEventListener("change",
 		}
 	}
 )
+
+// 1- modificare la struttura dati fornita e valorizzare la proprietà "color" in modo dinamico: 
+// generare in modo casuale un codice colore, sapendo che la notazione esadecimale è formata dal simbolo "#" 
+// seguito da 6 caratteri alfanumerici compresi tra 0 e 9 e A e F.
+
+function getCharacterLength (str) {
+	return [...str].length;
+  }
+
+function randomColor()
+{
+	let string = "ABCDEF0123456789";
+	let color = "#";
+	while (getCharacterLength(color) <= 6)
+	{
+		color += string[Math.floor(Math.random() * string.length)]
+	}
+	return color;
+}
+
+// 2- popolare le options della select della milestone 3 dinamicamente.
+
