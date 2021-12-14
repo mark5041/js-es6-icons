@@ -142,49 +142,57 @@ insertCardIntoContainer(ObjCard, card_container);
 // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone (animal, vegetable, user). 
 // Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
 
-let userFilter = ObjCard.filter((element) => {
-	return element.type == "user"
-});
+// let userFilter = ObjCard.filter((element) => {
+// 	return element.type == "user"
+// });
 
-let vegFilter = ObjCard.filter((element) => {
-	return element.type == "vegetable"
-});
+// let vegFilter = ObjCard.filter((element) => {
+// 	return element.type == "vegetable"
+// });
 
-let petFilter = ObjCard.filter((element) => {
-	return element.type == "animal"
-});
+// let petFilter = ObjCard.filter((element) => {
+// 	return element.type == "animal"
+// });
 
 let filtro = document.getElementById("filtro");
+
+let selectValue = [];
+ObjCard.forEach(element => {
+	if(!selectValue.includes(element.type))
+	{
+		selectValue.push(element.type);
+	}
+})
+console.log(selectValue);
 
 filtro.addEventListener("change", 
 	function()
 	{
-		switch(filtro.value)
+		if(filtro.value == "all")
 		{
-			case "animal":
-				iconColor = randomColor();
-				petFilter.forEach(element => {
-					element.color = iconColor;
-				});
-				insertCardIntoContainer(petFilter, card_container);
-			break;
-			case "user":
-				iconColor = randomColor();
-				userFilter.forEach(element => {
-					element.color = iconColor;
-				});
-				insertCardIntoContainer(userFilter, card_container);
-			break;
-			case "vegetable":
-				iconColor = randomColor();
-				vegFilter.forEach(element => {
-					element.color = iconColor;
-				});
-				insertCardIntoContainer(vegFilter, card_container);
-			break;
-			case "all":
-				insertCardIntoContainer(ObjCard, card_container);
-			break;
+			insertCardIntoContainer(ObjCard, card_container);
+		}
+		else
+		{
+			let selected;
+			for(let i = 0; i < selectValue.length; i++)
+			{
+				if(filtro.value == selectValue[i])
+				{
+					selected = selectValue[i];
+				}
+			}
+
+			let filtredObj = ObjCard.filter((element) => {
+				return element.type == selected;
+			});
+
+			iconColor = randomColor();
+			filtredObj.forEach(element => {
+				element.color = iconColor;
+			});
+
+			insertCardIntoContainer(filtredObj, card_container);
 		}
 	}
 )
@@ -209,4 +217,3 @@ function randomColor()
 }
 
 // 2- popolare le options della select della milestone 3 dinamicamente.
-
